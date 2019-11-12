@@ -79,5 +79,4 @@ const mapDispatchToProps = dispatch => ({
 
 export default compose(
   firebaseConnect(),
-  connect(mapStateToProps, mapDispatchToProps),
-)(RegisterScreen);
+  connect(mapStateToProps, mapDispatchToProps),)(RegisterScreen);
