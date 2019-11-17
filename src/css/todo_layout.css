@@ -109,3 +109,8 @@ input[type=password]:not(.browser-default):focus:not([readonly]) + label{
 .moveUpItem, .moveDownItem, .deleteItem {
   display: inline-block;
 }
+
+/*ITEM SCREEN*/
+#item_form_container {
+  display: grid;
+}
