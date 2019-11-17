@@ -20,6 +20,13 @@ class ListScreen extends Component {
         }));
     }
 
+    showModal = () => {
+        document.getElementsByClassName("modal")[0].classList.add("is_visible");
+    }
+    hideModal = () => {
+        document.getElementsByClassName("modal is_visible")[0].classList.remove("is_visible");
+    }
+
     render() {
         const auth = this.props.auth;
         const todoList = this.props.todoList;
@@ -30,15 +37,33 @@ class ListScreen extends Component {
         return (
             <div className="container white">
                 <h5 className="grey-text text-darken-3">Todo List</h5>
-                <div className="input-field">
-                    <label htmlFor="email">Name</label>
-                    <input className="active" type="text" name="name" id="name" onChange={this.handleChange} value={todoList.name} />
-                </div>
-                <div className="input-field">
-                    <label htmlFor="password">Owner</label>
-                    <input className="active" type="text" name="owner" id="owner" onChange={this.handleChange} value={todoList.owner} />
+                <div id="list_trash" onClick={this.showModal.bind()}>&#128465;</div>
+                <div className="list_screen_header">
+                    <div className="list_name">
+                        <div className="input-field">
+                            <label htmlFor="email">Name</label>
+                            <input className="active" type="text" name="name" id="name" onChange={this.handleChange} value={todoList.name} />
+                        </div>
+                    </div>
+                    <div className="list_owner">
+                        <div className="input-field">
+                            <label htmlFor="password">Owner</label>
+                            <input className="active" type="text" name="owner" id="owner" onChange={this.handleChange} value={todoList.owner} />
+                        </div>
+                    </div>
                 </div>
                 <ItemsList todoList={todoList} />
+
+                <div className="modal">
+                    <div className="modal_dialog">
+                        <p>Delete list?</p> 
+                        <p><strong>Are you sure you want to delete this list?</strong></p>
+                        <input id="delete_dialog_yes" type="button" value="Yes" onClick={this.props.removeList}/> 
+                        <input id="delete_dialog_no" type="button" value="No" onClick={this.hideModal}/>
+                        <p>The list will not be retreivable.</p>
+                    </div>
+                </div>
+
             </div>
         );
     }

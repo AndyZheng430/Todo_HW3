@@ -48,3 +48,64 @@ input[type=email]:not(.browser-default):focus:not([readonly]) + label,
 input[type=password]:not(.browser-default):focus:not([readonly]) + label{
   color: #ec407a !important;
 }
+
+/*List Screen*/
+.grey-text.text-darken-3 {
+  display: inline-block;
+}
+#list_trash {
+  display: inline-block;
+}
+.list_screen_header {
+  position: relative;
+}
+.list_name {
+  display: inline-block;
+  padding: 0px 10px;
+  width: 50%;
+}
+.list_owner {
+  display: inline-block;
+  padding: 0px 10px;
+  width: 50%;
+}
+.input-field {
+  display: inline-block;
+}
+/*Item List*/
+#list_item_header {
+  top: 10%;
+  padding: 24px;
+}
+.list_item_task_header, .card-assigned-to {
+  left: 5%;
+  width: 25%;
+  display: inline-block;
+}
+
+.card-title {
+  left: 5%;
+  display: inline-block;
+}
+
+.list_item_due_date_header, .card-due_date {
+  left: 40%;
+  width: 25%;
+  display: inline-block;
+}
+
+.list_item_status_header, .card-completed {
+  left: 70%;
+  width: 25%;
+  display: inline-block;
+}
+.item_button_set {
+  display: inline-block;
+}
+.item_button {
+  display: inline-block;
+}
+
+.moveUpItem, .moveDownItem, .deleteItem {
+  display: inline-block;
+}
