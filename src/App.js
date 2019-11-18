@@ -13,6 +13,7 @@ import DatabaseTester from './test/DatabaseTester';
 import ItemScreen from './components/item_screen/ItemScreen.js';
 
 class App extends Component {
+
   render() {
     const { auth } = this.props;
 
@@ -29,8 +30,8 @@ class App extends Component {
               <Route path="/register" component={RegisterScreen} />
               <Route path="/login" component={LoginScreen} />
               <Route path="/todoList/:id" component={ListScreen} />
+              <Route path="/todoList/:id/:key" component={ItemScreen} />
               <Route path="/:any" component={HomeScreen} />
-              <Route path="/itemScreen" component={ItemScreen} />
             </Switch>
           </div>
         </BrowserRouter>

@@ -3,11 +3,14 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 import ItemCard from './ItemCard';
 import { firestoreConnect } from 'react-redux-firebase';
+import { Button } from 'react-materialize';
 
 class ItemsList extends React.Component {
+
     render() {
         const todoList = this.props.todoList;
         const items = todoList.items;
+        const self = this.props;
         console.log("ItemsList: todoList.id " + todoList.id);
         return (
             <div className="todo-lists section">
@@ -19,11 +22,11 @@ class ItemsList extends React.Component {
                 {items && items.map(function(item) {
                     item.id = item.key;
                     return (
-                        <ItemCard todoList={todoList} item={item} />
+                        <ItemCard todoList={todoList} item={item} editItem={self.editItem} />
                     );})
                 }
-                <div>
-                    <button className="list_item_add_button">&#8853;</button>
+                <div className="list_item_add_button_container">
+                    <Button className="list_item_add_button">&#8853;</Button>
                 </div>
             </div>
         );

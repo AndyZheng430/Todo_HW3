@@ -50,7 +50,7 @@ input[type=password]:not(.browser-default):focus:not([readonly]) + label{
 }
 
 /*List Screen*/
-.grey-text.text-darken-3 {
+.list_header {
   display: inline-block;
 }
 #list_trash {
@@ -78,25 +78,26 @@ input[type=password]:not(.browser-default):focus:not([readonly]) + label{
   padding: 24px;
 }
 .list_item_task_header, .card-assigned-to {
-  left: 5%;
-  width: 25%;
+  left: 2%;
+  width: 20%;
   display: inline-block;
 }
 
 .card-title {
-  left: 5%;
+  left: 2%;
+  width: 50%;
   display: inline-block;
 }
 
 .list_item_due_date_header, .card-due_date {
-  left: 40%;
-  width: 25%;
+  left: 50%;
+  width: 20%;
   display: inline-block;
 }
 
 .list_item_status_header, .card-completed {
   left: 70%;
-  width: 25%;
+  width: 20%;
   display: inline-block;
 }
 .item_button_set {
@@ -106,9 +107,10 @@ input[type=password]:not(.browser-default):focus:not([readonly]) + label{
   display: inline-block;
 }
 
-.moveUpItem, .moveDownItem, .deleteItem {
+.moveUpItem, .moveDownItem, .deleteItem, .editItem {
   display: inline-block;
 }
+
 
 /*ITEM SCREEN*/
 #item_form_container {
