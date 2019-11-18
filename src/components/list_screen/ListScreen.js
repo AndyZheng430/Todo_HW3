@@ -45,10 +45,9 @@ class ListScreen extends Component {
     //     document.getElementsByClassName("modal open is_visible")[0].classList.remove("is_visible");
     // }
 
-    editItem = () => {
-        const firestore = getFirestore();
-        var item = firestore.collection('todoLists').doc(this.props.todoList.id);
-        console.log(item);
+    orderTask() {
+        const firebase = getFirestore();
+        firebase.collection("todoList").doc(this.props.todoList.id).orderBy("items",)
     }
 
     render() {
@@ -84,7 +83,7 @@ class ListScreen extends Component {
                         </div>
                     </div>
                 </div>
-                <ItemsList todoList={todoList} editItem={this.editItem} />
+                <ItemsList todoList={todoList} editItem={this.editItem} deleteItem={this.deleteItem}/>
             </div>
         );
     }

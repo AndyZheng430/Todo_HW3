@@ -1,10 +1,9 @@
 import React from 'react';
 import { Button } from 'react-materialize';
-import { directive } from '@babel/types';
 import { getFirestore } from 'redux-firestore';
 
 class ItemCard extends React.Component {
-
+    
     handleCompleted(complete) {
         if ( complete == true ) {
             return "Completed"
@@ -23,18 +22,69 @@ class ItemCard extends React.Component {
         }
     }
 
-    deleteItem = (e, item) => {
-        const { target } = e;
-        const firestore = getFirestore();
-        var currentId = this.props.item.id;
+    moveUp = (e) => {
+        if (this.props.item.key == 0) {
+            return ;
+        }
+        var currentList = this.props.todoList;
+        var currentItem = currentList.items[this.props.item.key];
+        var previousItem = currentList.items[this.props.item.key-1];
 
-        var fir = firestore.collection('todoLists').doc(item).get();
-        console.log(fir);
+        var currentIndex = this.props.item.key;
+        var previousIndex = this.props.item.key-1;
+
+        currentItem.key = previousIndex;
+        currentItem.id = previousIndex;
+        previousItem.key = currentIndex;
+        previousItem.id = currentIndex;
+
+        currentList.items[currentIndex] = previousItem;
+        currentList.items[previousIndex] = currentItem;
+
+        const firestore = getFirestore();
+        firestore.collection("todoLists").doc(this.props.todoList.id).update({
+            items: currentList.items
+        });
     }
 
-    moveUp = (e) => {}
+    moveDown = (e) => {
+        if (this.props.item.key == this.props.todoList.items.length - 1) {
+            return ;
+        }
+        var currentList = this.props.todoList;
+        var currentItem = currentList.items[this.props.item.key];
+        var previousItem = currentList.items[this.props.item.key+1];
 
+        var currentIndex = this.props.item.key;
+        var previousIndex = this.props.item.key+1;
 
+        currentItem.key = previousIndex;
+        currentItem.id = previousIndex;
+        previousItem.key = currentIndex;
+        previousItem.id = currentIndex;
+
+        currentList.items[currentIndex] = previousItem;
+        currentList.items[previousIndex] = currentItem;
+
+        const firestore = getFirestore();
+        firestore.collection("todoLists").doc(this.props.todoList.id).update({
+            items: currentList.items
+        });
+    }
+
+    deleteItem = (e) => {
+        const { target } = e;
+        const firestore = getFirestore();
+
+        // let newItems = this.props.todoList.items.splice(this.props.todoList., 1);
+        // firestore.collection("todoLists").doc(this.props.todoList.id).update({ items: newItems });
+    }
+
+    editItem = (e) => {
+        const firestore = getFirestore();
+        var item = firestore.collection('todoLists').doc(this.props.todoList.id).get();
+        console.log(item);
+    }
 
     render() {
         const { item } = this.props;  
@@ -50,10 +100,10 @@ class ItemCard extends React.Component {
                         <div className="item_button_show">+</div>
                     </Button>
                     <div className="item_button_set">
-                        <Button floating className="moveUpItem" onClick={this.moveUp}>&#8593;</Button>
+                        <Button floating className="moveUpItem" onClick={(e) => this.moveUp(e)}>&#8593;</Button>
                         <Button floating className="moveDownItem" onClick={this.moveDown}>&#8595;</Button>
                         <Button floating className="deleteItem" onClick={(e) => this.deleteItem(e)}>&#x2715;</Button>
-                        <Button floating className="editItem" onClick={this.props.editItem}>&#9998;</Button>
+                        <Button floating className="editItem" onClick={(e) => this.editItem(e)}>&#9998;</Button>
                     </div>
                 </div>
             </div>
