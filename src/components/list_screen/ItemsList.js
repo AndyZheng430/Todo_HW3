@@ -8,6 +8,13 @@ import { getFirestore } from 'redux-firestore';
 
 class ItemsList extends React.Component {
 
+    orderTask = (e) => {
+        var currentList = this.props.todoList;
+        for( var i=0; i < currentList.items.length; i++) {
+        }
+        const firebase = getFirestore();
+    }
+
     render() {
         const todoList = this.props.todoList;
         const items = todoList.items;
@@ -16,7 +23,7 @@ class ItemsList extends React.Component {
         return (
             <div className="todo-lists section">
                 <div id="list_item_header">
-                    <div className="list_item_task_header" onClick={this.props.orderTask}>Task</div>
+                    <div className="list_item_task_header" onClick={(e) => this.orderTask(e)}>Task</div>
                     <div className="list_item_due_date_header">Due Date</div>
                     <div className="list_item_status_header">Status</div>
                 </div>

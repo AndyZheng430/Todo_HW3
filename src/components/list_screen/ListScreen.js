@@ -41,13 +41,8 @@ class ListScreen extends Component {
     showModal = () => {
         document.getElementsByClassName("modal modal-content")[0].classList.add("is_visible");
     }
-    // hideModal = () => {
-    //     document.getElementsByClassName("modal open is_visible")[0].classList.remove("is_visible");
-    // }
-
-    orderTask() {
-        const firebase = getFirestore();
-        firebase.collection("todoList").doc(this.props.todoList.id).orderBy("items",)
+    hideModal = () => {
+        document.getElementsByClassName("modal modal-content open is_visible")[0].classList.remove("is_visible");
     }
 
     render() {
@@ -66,7 +61,7 @@ class ListScreen extends Component {
                 <Modal header="Delete list?" fixedFooter trigger={trash}>
                     <p><strong>Are you sure you want to delete this list?</strong></p>
                     <Button id="delete_dialog_yes">Yes</Button>
-                    <Button id="delete_dialog_no">No</Button>
+                    <Button id="delete_dialog_no" onClick={this.hideModal}>No</Button>
                     <p>The list will not be retreivable.</p>
                 </Modal>
                 <div className="list_screen_header">
@@ -83,7 +78,7 @@ class ListScreen extends Component {
                         </div>
                     </div>
                 </div>
-                <ItemsList todoList={todoList} editItem={this.editItem} deleteItem={this.deleteItem}/>
+                <ItemsList todoList={todoList}/>
             </div>
         );
     }

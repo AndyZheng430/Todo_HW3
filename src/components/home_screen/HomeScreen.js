@@ -14,8 +14,7 @@ class HomeScreen extends Component {
         firestore.collection('todoLists').add({
             name:"N/A",
             owner:"N/A",
-            items:[],
-            time: Date.now()
+            items:[]
         })
     }
 

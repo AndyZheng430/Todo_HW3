@@ -73,17 +73,29 @@ class ItemCard extends React.Component {
     }
 
     deleteItem = (e) => {
-        const { target } = e;
-        const firestore = getFirestore();
+        var currentList = this.props.todoList;
+        currentList.items.splice(this.props.item.key, 1);
 
-        // let newItems = this.props.todoList.items.splice(this.props.todoList., 1);
-        // firestore.collection("todoLists").doc(this.props.todoList.id).update({ items: newItems });
+        for ( var i = 0; i < currentList.items.length; i++) {
+            currentList.items[i].id = i;
+            currentList.items[i].key = i;
+        }
+        
+        const firestore = getFirestore();
+        firestore.collection("todoLists").doc(this.props.todoList.id).update({
+            items: currentList.items
+        });
     }
 
     editItem = (e) => {
+        var currentList = this.props.todoList;
+        var currentItem = this.props.item.key;
+
+        var itemScreenLink = '/' + currentList.id + '/' + currentItem.id;
+        this.props.history.push(itemScreenLink);
+
+
         const firestore = getFirestore();
-        var item = firestore.collection('todoLists').doc(this.props.todoList.id).get();
-        console.log(item);
     }
 
     render() {
@@ -101,7 +113,7 @@ class ItemCard extends React.Component {
                     </Button>
                     <div className="item_button_set">
                         <Button floating className="moveUpItem" onClick={(e) => this.moveUp(e)}>&#8593;</Button>
-                        <Button floating className="moveDownItem" onClick={this.moveDown}>&#8595;</Button>
+                        <Button floating className="moveDownItem" onClick={(e) => this.moveDown(e)}>&#8595;</Button>
                         <Button floating className="deleteItem" onClick={(e) => this.deleteItem(e)}>&#x2715;</Button>
                         <Button floating className="editItem" onClick={(e) => this.editItem(e)}>&#9998;</Button>
                     </div>
