@@ -7,7 +7,11 @@ import { firebaseConnect } from 'react-redux-firebase';
 
 
 class ItemScreen extends Component {
+
     render() {
+        const todoList = this.props.location.state.todoList;
+        const key = this.props.location.state.key;
+
         return (
             <div>
                 <div id="item_form_container">
@@ -15,19 +19,19 @@ class ItemScreen extends Component {
                 </div>
                 <div id="item_description_prompt">
                     <strong>Description: </strong>
-                    <input id="item_description_textfield" type="text" defaultValue=""/>
+                    <input id="item_description_textfield" type="text" defaultValue={todoList.items[key].description}/>
                 </div>
                 <div id="item_assigned_to_prompt">
                     <strong>AssignedTo: </strong>
-                    <input id="item_assigned_to_textfield" type="text" defaultValue=""/>
+                    <input id="item_assigned_to_textfield" type="text" defaultValue={todoList.items[key].assigned_to}/>
                 </div>
                 <div id="item_due_date_prompt">
                     <strong>Due Date: </strong>
-                    <input id="item_due_date_picker" type="date" defaultValue=""/>
+                    <input id="item_due_date_picker" type="date" defaultValue={todoList.items[key].due_date}/>
                 </div>
                 <div>
                     <strong>Completed: </strong>
-                    <input id="item_completed_checkbox" type="checkbox" defaultChecked=""/>
+                    <input id="item_completed_checkbox" type="checkbox" defaultChecked={todoList.items[key].completed}/>
                 </div>
                 <div>
                     <input id="item_form_submit_button" type="button" value="Submit"/>

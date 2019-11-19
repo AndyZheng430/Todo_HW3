@@ -7,12 +7,74 @@ import { Button } from 'react-materialize';
 import { getFirestore } from 'redux-firestore';
 
 class ItemsList extends React.Component {
+    state = {
+        sortBy: ""
+    }
 
     orderTask = (e) => {
         var currentList = this.props.todoList;
-        for( var i=0; i < currentList.items.length; i++) {
+        if (this.state.sortBy == "TaskAsc") {
+            this.setState({sortBy: "TaskDesc"})
+            currentList.items.sort((a,b) => a.description < b.description);
         }
+        else {
+            this.setState({sortBy: "TaskAsc"})
+            currentList.items.sort((a,b) => a.description > b.description);
+        }
+
+        for( var i=0; i< currentList.items.length; i++ ) {
+            currentList.items[i].key = i;
+            currentList.items[i].id = i;
+        }
+
         const firebase = getFirestore();
+        firebase.collection("todoLists").doc(this.props.todoList.id).update({
+            items: currentList.items
+        });
+    }
+
+    orderDueDate = (e) => {
+        var currentList = this.props.todoList;
+        if (this.state.sortBy == "DueDateAsc") {
+            this.setState({sortBy: "DueDateDesc"})
+            currentList.items.sort((a,b) => a.due_date < b.due_date);
+        }
+        else {
+            this.setState({sortBy: "DueDateAsc"})
+            currentList.items.sort((a,b) => a.due_date > b.due_date);
+        }
+
+        for( var i=0; i< currentList.items.length; i++ ) {
+            currentList.items[i].key = i;
+            currentList.items[i].id = i;
+        }
+
+        const firebase = getFirestore();
+        firebase.collection("todoLists").doc(this.props.todoList.id).update({
+            items: currentList.items
+        });
+    }
+
+    orderCompleted = (e) => {
+        var currentList = this.props.todoList;
+        if (this.state.sortBy == "CompletedAsc") {
+            this.setState({sortBy: "CompletedDesc"})
+            currentList.items.sort((a,b) => a.completed > b.completed);
+        }
+        else {
+            this.setState({sortBy: "CompletedAsc"})
+            currentList.items.sort((a,b) => a.completed < b.completed);
+        }
+
+        for( var i=0; i< currentList.items.length; i++ ) {
+            currentList.items[i].key = i;
+            currentList.items[i].id = i;
+        }
+
+        const firebase = getFirestore();
+        firebase.collection("todoLists").doc(this.props.todoList.id).update({
+            items: currentList.items
+        });
     }
 
     render() {
@@ -24,8 +86,8 @@ class ItemsList extends React.Component {
             <div className="todo-lists section">
                 <div id="list_item_header">
                     <div className="list_item_task_header" onClick={(e) => this.orderTask(e)}>Task</div>
-                    <div className="list_item_due_date_header">Due Date</div>
-                    <div className="list_item_status_header">Status</div>
+                    <div className="list_item_due_date_header" onClick={(e) => this.orderDueDate(e)}>Due Date</div>
+                    <div className="list_item_status_header" onClick={(e) => this.orderCompleted(e)}>Status</div>
                 </div>
                 {items && items.map(function(item) {
                     item.id = item.key;

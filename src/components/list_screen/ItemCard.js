@@ -1,6 +1,7 @@
 import React from 'react';
 import { Button } from 'react-materialize';
 import { getFirestore } from 'redux-firestore';
+import { Link, Redirect } from 'react-router-dom'
 
 class ItemCard extends React.Component {
     
@@ -87,20 +88,9 @@ class ItemCard extends React.Component {
         });
     }
 
-    editItem = (e) => {
-        var currentList = this.props.todoList;
-        var currentItem = this.props.item.key;
-
-        var itemScreenLink = '/' + currentList.id + '/' + currentItem.id;
-        this.props.history.push(itemScreenLink);
-
-
-        const firestore = getFirestore();
-    }
-
     render() {
         const { item } = this.props;  
-        
+
         return (
             <div className="card z-depth-0 todo-list-link pink-lighten-3">
                 <div className="card-content grey-text text-darken-3">
@@ -115,7 +105,9 @@ class ItemCard extends React.Component {
                         <Button floating className="moveUpItem" onClick={(e) => this.moveUp(e)}>&#8593;</Button>
                         <Button floating className="moveDownItem" onClick={(e) => this.moveDown(e)}>&#8595;</Button>
                         <Button floating className="deleteItem" onClick={(e) => this.deleteItem(e)}>&#x2715;</Button>
-                        <Button floating className="editItem" onClick={(e) => this.editItem(e)}>&#9998;</Button>
+                        <Link to={{pathname: '/todoList/'+this.props.todoList.id+"/"+this.props.item.key, state: {todoList:this.props.todoList, key:this.props.item.key}}}>
+                            <Button floating className="editItem">&#9998;</Button>
+                        </Link>
                     </div>
                 </div>
             </div>

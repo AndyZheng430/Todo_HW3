@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Redirect } from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom'
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import ItemsList from './ItemsList.js'
@@ -38,11 +38,18 @@ class ListScreen extends Component {
         });
     }
 
-    showModal = () => {
+    showModal = (e) => {
         document.getElementsByClassName("modal modal-content")[0].classList.add("is_visible");
     }
-    hideModal = () => {
-        document.getElementsByClassName("modal modal-content open is_visible")[0].classList.remove("is_visible");
+    hideModal = (e) => {
+        var modal = document.getElementsByClassName("modal modal-fixed-footer open")[0];
+        console.log(modal.parentNode);
+    }
+
+    removeList = (e) => {
+        const firestore = getFirestore();
+        firestore.collection('todoLists').doc(this.props.todoList.id).delete();
+        this.props.history.push('/');
     }
 
     render() {
@@ -53,15 +60,14 @@ class ListScreen extends Component {
         if (!auth.uid) {
             return <Redirect to="/" />;
         }
-        const trash = <Button id="list_trash" onClick={this.showModal}>&#128465;</Button>;
-
+        const trash = <Button id="list_trash">&#128465;</Button>;
+        
         return (
             <div className="container white">
                 <h5 className="grey-text text-darken-3 list_header">Todo List</h5>
                 <Modal header="Delete list?" fixedFooter trigger={trash}>
                     <p><strong>Are you sure you want to delete this list?</strong></p>
-                    <Button id="delete_dialog_yes">Yes</Button>
-                    <Button id="delete_dialog_no" onClick={this.hideModal}>No</Button>
+                    <Button id="delete_dialog_yes" onClick={(e) => this.removeList(e)}>Yes</Button>
                     <p>The list will not be retreivable.</p>
                 </Modal>
                 <div className="list_screen_header">
