@@ -15,7 +15,6 @@ class HomeScreen extends Component {
             owner:"N/A",
             items:[]
         })
-
     }
 
     render() {
