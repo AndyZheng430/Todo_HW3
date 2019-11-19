@@ -10,12 +10,12 @@ class HomeScreen extends Component {
 
     handleNewList = () => {
         const firestore = getFirestore();
-
         firestore.collection('todoLists').add({
             name:"N/A",
             owner:"N/A",
             items:[]
         })
+
     }
 
     render() {
