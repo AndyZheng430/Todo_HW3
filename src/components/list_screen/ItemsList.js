@@ -5,6 +5,7 @@ import ItemCard from './ItemCard';
 import { firestoreConnect } from 'react-redux-firebase';
 import { Button } from 'react-materialize';
 import { getFirestore } from 'redux-firestore';
+import { Link } from 'react-router-dom';
 
 class ItemsList extends React.Component {
     state = {
@@ -95,9 +96,11 @@ class ItemsList extends React.Component {
                         <ItemCard todoList={todoList} item={item} />
                     );})
                 }
-                <div className="list_item_add_button_container">
-                    <Button className="list_item_add_button">&#8853;</Button>
-                </div>
+                <Link to={{pathname: '/todoList/'+this.props.todoList.id+"/-1", state: {todoList:this.props.todoList, key:-1}}}>
+                    <div className="list_item_add_button_container">
+                        <Button className="list_item_add_button">&#8853;</Button>
+                    </div>
+                </Link>
             </div>
         );
     }
